@@ -1,0 +1,195 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+
+
+    <LinearLayout
+        android:id="@+id/liner"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@color/background_color">
+
+        <TextView
+            android:id="@+id/operation_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="Добавить запись"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/liner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/liner"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Введите время "
+            android:layout_marginRight="15dp"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/add_hour"
+            android:layout_width="wrap_content"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="30dp"
+            android:layout_height="wrap_content"
+            android:hint="23" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/add_minute"
+            android:layout_width="wrap_content"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="30dp"
+            android:layout_height="wrap_content"
+            android:hint="59" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/liner_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/liner_layout"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginRight="15dp"
+            android:text="Веедите время "
+            android:textColor="#00111111"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="25dp"
+            android:text="ч." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="5dp"
+            android:text="мин." />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/add_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/liner_info"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textColor="@color/red" />
+
+
+    <EditText
+        android:id="@+id/add_name_client"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_error"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="Имя" />
+
+
+    <EditText
+        android:id="@+id/add_number_client"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/add_name_client"
+        android:layout_marginLeft="30dp"
+        android:layout_toLeftOf="@id/add_get_contact"
+        android:hint="Номер телефона"
+        android:inputType="phone" />
+
+    <ImageView
+        android:id="@+id/add_get_contact"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/add_name_client"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/ic_baseline_contact_page_24" />
+
+
+    <TextView
+        android:id="@+id/add_positive_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_job_client"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/background_button"
+        android:padding="10dp"
+        android:text="   OK   "
+        android:textColor="@color/teal_700"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/add_negative_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_job_client"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/add_positive_click"
+        android:background="@color/background_button"
+        android:padding="10dp"
+        android:text="Отмена"
+        android:textColor="@color/teal_700"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+    <EditText
+        android:id="@+id/add_job_client"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add_number_client"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="Работа" />
+
+
+</RelativeLayout>
