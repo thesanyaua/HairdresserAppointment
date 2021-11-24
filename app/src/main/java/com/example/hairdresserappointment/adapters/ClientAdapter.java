@@ -86,7 +86,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
     @Override
     public void onBindViewHolder(@NonNull ClienrAdapterViewHolder holder, int position) {
         Client client = clients.get(position);
-        ClientAddDataBase clientAddDataBase = Room.databaseBuilder(context, ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
+        ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(context);
         String hour_format = String.format("%02d", client.getTimeHour());
         String minute_format = String.format("%02d", client.getTimeMinute());
         holder.time_Hour.setText(hour_format);

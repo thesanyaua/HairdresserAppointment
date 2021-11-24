@@ -6,7 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.util.Log;
@@ -17,19 +20,23 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hairdresserappointment.adapters.AdapterDayInfo;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+import com.example.hairdresserappointment.other.DataInfo;
+import com.example.hairdresserappointment.other.DataInfoViewModel;
 
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class StartFragment extends Fragment {
     CalendarView calendarView;
-    TextView number_notes, nextDay, otherDay, date_nextDay_textView, date_otherDay_textView;
+    RecyclerView recyclerView;
     ClientAddDataBase clientAddDataBase;
-    CardView infoDateNow, cardViewNextDay, cardViewOtherDay;
     Bundle bundleSetNoteDayFragment;
 
     @Override
@@ -41,11 +48,12 @@ public class StartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
-        clientAddDataBase = Room.databaseBuilder(getContext(), ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
-        nowDate(view);
-        nextDay(view);
-        otherDay(view);
+        clientAddDataBase = ClientAddDataBase.getInstance(getContext());
 
+
+        /*View Model отвечающяя за отображение по дате в recycler*/
+        DataInfoViewModel dataInfoViewModel = new ViewModelProvider(StartFragment.this).get(DataInfoViewModel.class);
+        dataInfoViewModel.addListInLiveData(StartFragment.this, recyclerView);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -61,82 +69,11 @@ public class StartFragment extends Fragment {
 
 
     public void init(View view) {
-
         calendarView = view.findViewById(R.id.calendar);
-        number_notes = view.findViewById(R.id.number_notes);
-        nextDay = view.findViewById(R.id.next_day_textView);
-        otherDay = view.findViewById(R.id.other_day_textView);
-        date_nextDay_textView = view.findViewById(R.id.date_nextDay_textView);
-        date_otherDay_textView = view.findViewById(R.id.date_otherDay_textView);
-        infoDateNow = view.findViewById(R.id.info_date_now);
-        cardViewNextDay = view.findViewById(R.id.card_view_next_day);
-        cardViewOtherDay = view.findViewById(R.id.card_view_other_day);
-    }
-    public void nowDate(View view) {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMMyyyy");
-        SimpleDateFormat day = createSimpleDateFormat("dd");
-        SimpleDateFormat month = createSimpleDateFormat("MM");
-        SimpleDateFormat year = createSimpleDateFormat("yyyy");
-        int date = Integer.parseInt(simpleDateFormatID.format(calendar.getTime()));
-        number_notes.setText(""+clientAddDataBase.getClientDAO().getListDate(date).size());
-        infoDateNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("dataID", date);
-                Navigation.findNavController(view).navigate(R.id.noteDayFragment, bundle);
-                monthName(Integer.parseInt(year.format(calendar.getTime())), (Integer.parseInt(month.format(calendar.getTime()))-1),Integer.parseInt(day.format(calendar.getTime())));
-            }
-        });
+        recyclerView = view.findViewById(R.id.recyclerView_date);
     }
 
-    public void nextDay(View view) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 1);
-        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMMyyyy");
-        SimpleDateFormat simpleDateFormat = createSimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat day = createSimpleDateFormat("dd");
-        SimpleDateFormat month = createSimpleDateFormat("MM");
-        SimpleDateFormat year = createSimpleDateFormat("yyyy");
-        int nextDayValue = Integer.parseInt(simpleDateFormatID.format(calendar.getTime()));
-        date_nextDay_textView.setText(""+simpleDateFormat.format(calendar.getTime()));
-        nextDay.setText(""+clientAddDataBase.getClientDAO().getListDate(nextDayValue).size());
-        cardViewNextDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("dataID", nextDayValue);
-                Navigation.findNavController(view).navigate(R.id.noteDayFragment, bundle);
-                monthName(Integer.parseInt(year.format(calendar.getTime())), (Integer.parseInt(month.format(calendar.getTime()))-1),Integer.parseInt(day.format(calendar.getTime())));
-            }
-        });
-    }
 
-    public void otherDay(View view) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 2);
-        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMMyyyy");
-        SimpleDateFormat simpleDateFormat = createSimpleDateFormat("dd.MM.yyyy");
-        SimpleDateFormat day = createSimpleDateFormat("dd");
-        SimpleDateFormat month = createSimpleDateFormat("MM");
-        SimpleDateFormat year = createSimpleDateFormat("yyyy");
-        int otherDayValue = Integer.parseInt(simpleDateFormatID.format(calendar.getTime()));
-        date_otherDay_textView.setText(""+simpleDateFormat.format(calendar.getTime()));
-        otherDay.setText(""+clientAddDataBase.getClientDAO().getListDate(otherDayValue).size());
-        cardViewOtherDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("dataID", otherDayValue);
-                Navigation.findNavController(view).navigate(R.id.noteDayFragment, bundle);
-                monthName(Integer.parseInt(year.format(calendar.getTime())), (Integer.parseInt(month.format(calendar.getTime()))-1),Integer.parseInt(day.format(calendar.getTime())));
-            }
-        });
-    }
-    public SimpleDateFormat createSimpleDateFormat(String pattern) {
-        return new SimpleDateFormat(pattern, Locale.getDefault());
-    }
 
     public void monthName(int year, int month, int dayOfMonth) {
         if (month == 0) {

@@ -18,132 +18,13 @@
         android:layout_marginBottom="10dp"
         app:cardCornerRadius="30dp">
 
-        <RelativeLayout
-            android:id="@+id/relative_info"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E8E7E7">
+            android:background="#FAFAFA"
+             android:padding="15dp"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/info_date_now"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@color/background_color"
-                        android:gravity="center"
-                        android:text="Записи на сегодня"
-                        android:textColor="@color/white"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/number_notes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="80dp" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_next_day"
-                android:layout_width="160dp"
-                android:layout_height="150dp"
-                android:layout_below="@id/info_date_now"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/date_nextDay_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/background_color"
-                        android:gravity="center"
-                        android:text="01.01.1991"
-                        android:textColor="@color/white"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/next_day_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="50dp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_other_day"
-                android:layout_width="160dp"
-                android:layout_height="150dp"
-                android:layout_below="@id/info_date_now"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/date_otherDay_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/background_color"
-                        android:gravity="center"
-                        android:text="01.01.1991"
-                        android:textColor="@color/white"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/other_day_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="50dp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

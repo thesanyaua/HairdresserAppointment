@@ -54,7 +54,7 @@ public class AddClientFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
-        clientAddDataBase = Room.databaseBuilder(getContext(), ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
+        clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         add_get_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

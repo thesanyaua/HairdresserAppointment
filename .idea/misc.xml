@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/drawable/ic_baseline_contact_page_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.37864583333333335" />
@@ -11,6 +12,7 @@
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/add_notatics.xml" value="0.3625" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/clientinfo_layout.xml" value="0.3625" />
+        <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/date_info_layout.xml" value="0.3625" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/fragment_add_client.xml" value="0.3625" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/fragment_edit_client.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/thesa/AndroidStudioProjects/HairdresserAppointment/app/src/main/res/layout/fragment_note_day.xml" value="0.3625" />

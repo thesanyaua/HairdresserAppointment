@@ -65,7 +65,7 @@ public class NoteDayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
-        ClientAddDataBase clientAddDataBase = Room.databaseBuilder(getContext(), ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
+        ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         textView.setText(dateClickInBar);
         ClientAdapter clientAdapter = new ClientAdapter(getContext());
         clientAdapter.addListClient(clientAddDataBase.getClientDAO().getListDate(dataID));

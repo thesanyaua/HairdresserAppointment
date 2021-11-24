@@ -70,7 +70,7 @@ ImageView e_add_contact_from_contacts;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
-        clientAddDataBase = Room.databaseBuilder(getContext(), ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
+        clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         e_hour.setText(time_Hour);
         e_minute.setText(time_Minute);
         e_name_add_notatics.setText(name_client);
