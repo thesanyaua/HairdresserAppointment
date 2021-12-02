@@ -11,7 +11,7 @@
         android:id="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/background_color"
+        android:background="@color/green_them"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -28,12 +28,12 @@
             android:id="@+id/date_info"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="01 января 1991"
-            android:textStyle="bold"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:text="01 января 1991"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView_addUser"

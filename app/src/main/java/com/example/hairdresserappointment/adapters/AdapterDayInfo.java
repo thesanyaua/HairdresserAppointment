@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ public class AdapterDayInfo extends RecyclerView.Adapter<AdapterDayInfo.AdapterD
        holder.day_name.setText(dataInfo.getDayName());
        holder.openDay.setText(""+dataInfo.getOpenDate());
 
-       holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+       holder.cardView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Bundle bundleSetNoteDayFragment = new Bundle();
@@ -61,14 +62,14 @@ public class AdapterDayInfo extends RecyclerView.Adapter<AdapterDayInfo.AdapterD
         TextView numberOfRecords;
         TextView day_name;
         TextView openDay;
-        RelativeLayout relativeLayout;
+        CardView cardView;
         public AdapterDayInfoViewHolder(@NonNull View itemView) {
             super(itemView);
             data_records = itemView.findViewById(R.id.data_info_startFragment);
             numberOfRecords = itemView.findViewById(R.id.numberOfRecords_textView);
             day_name = itemView.findViewById(R.id.dayName);
             openDay = itemView.findViewById(R.id.openDate);
-            relativeLayout = itemView.findViewById(R.id.relative_open);
+            cardView = itemView.findViewById(R.id.cardView_open);
 
         }
     }

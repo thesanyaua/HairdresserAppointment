@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingFragment">
+
+   <LinearLayout
+       android:id="@+id/setting_bar"
+       android:layout_width="match_parent"
+       android:layout_height="?actionBarSize"
+       android:background="@color/yellow_them">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <ImageView
+               android:id="@+id/setting_back"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:src="@drawable/ic_baseline_arrow_back_24"
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="10dp"/>
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_centerInParent="true"
+               android:gravity="center"
+               android:text="Настройки"
+               android:textColor="@color/black"
+               android:textSize="17dp"
+               android:textStyle="bold" />
+
+           <ImageView
+               android:id="@+id/setting_save"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:src="@drawable/ic_baseline_save_24"
+               android:layout_alignParentEnd="true"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"/>
+
+       </RelativeLayout>
+
+
+   </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/text_them"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_bar"
+        android:layout_marginLeft="5dp"
+        android:text="Изменить тему"
+        android:textStyle="bold" />
+
+
+
+
+    <RadioGroup
+        android:id="@+id/radio_group_colors"
+        android:layout_below="@id/text_them"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <RadioButton
+            android:id="@+id/radioButton_green"
+            android:layout_width="match_parent"
+            android:text="Зелённый"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_yellow"
+            android:layout_width="match_parent"
+            android:text="Желтый"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_blue"
+            android:layout_width="match_parent"
+            android:text="Синий"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_red"
+            android:layout_width="match_parent"
+            android:text="Красный"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <View
+        android:id="@+id/liner_2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/radio_group_colors"
+        android:layout_marginTop="2dp"
+        android:background="#CDCDCD" />
+
+
+</RelativeLayout>

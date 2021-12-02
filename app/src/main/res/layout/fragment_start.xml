@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/start_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="#E8E7E7"
     tools:context=".StartFragment">
 
     <androidx.cardview.widget.CardView
@@ -16,14 +17,16 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="30dp">
+        app:cardCornerRadius="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FAFAFA"
-             android:padding="15dp"/>
+            android:padding="2dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -36,13 +39,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="30dp">
+        app:cardCornerRadius="10dp">
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="320dp" />
 
     </androidx.cardview.widget.CardView>
 

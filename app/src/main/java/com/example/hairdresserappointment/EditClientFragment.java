@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import android.provider.ContactsContract;
@@ -22,10 +24,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hairdresserappointment.adapters.ClientAdapter;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+
+import java.util.List;
 
 
 public class EditClientFragment extends DialogFragment {
@@ -44,6 +49,7 @@ EditText e_hour, e_minute, e_name_add_notatics, e_number_add_notatics;
 TextView positive_click, negative_click, error_textView, edit_job_client;
 ClientAddDataBase clientAddDataBase;
 ImageView e_add_contact_from_contacts;
+DataBaseViewModel dataBaseViewModel;
 
 
     @Override
@@ -70,6 +76,7 @@ ImageView e_add_contact_from_contacts;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+        dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         e_hour.setText(time_Hour);
         e_minute.setText(time_Minute);
@@ -105,8 +112,27 @@ ImageView e_add_contact_from_contacts;
                                 Integer.parseInt(e_hour.getText().toString()),
                                 Integer.parseInt(e_minute.getText().toString()),
                                 edit_job_client.getText().toString());
-                        clientAddDataBase.getClientDAO().updateClient(client);
-                        clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
+
+                        //clientAddDataBase.getClientDAO().updateClient(client);
+                        dataBaseViewModel.databaseUpdateClient(client);
+                        //clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
+                        //clientAdapter.adapterReplace(dataBaseViewModel.getListID(dateID));
+                        //dataBaseViewModel.getListID(dateID, clientAdapter);
+
+//                        dataBaseViewModel.getListID(dateID).observe(EditClientFragment.this, new Observer<List<Client>>() {
+//                            @Override
+//                            public void onChanged(List<Client> clients) {
+//                                clientAdapter.adapterReplace(clients);
+//                            }
+//                        });
+
+                        clientAddDataBase.getClientDAO().getListDateUI(dateID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
+                            @Override
+                            public void onChanged(List<Client> clients) {
+                                clientAdapter.adapterReplace(clients);
+                            }
+                        });
+
                         EditClientFragment.this.onDestroyView();
                     }
                 }catch (Exception e) {

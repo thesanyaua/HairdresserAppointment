@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,12 +29,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hairdresserappointment.adapters.ClientAdapter;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,8 @@ public class NoteDayFragment extends Fragment {
     TextView textView;
     ImageView back, add;
     RecyclerView recyclerView;
+    LinearLayout statusBar;
+    DataBaseViewModel dataBaseViewModel;
 
 
     @Override
@@ -65,12 +71,35 @@ public class NoteDayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+
+        /*Доработать найстройки цвета*/
+       /* SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingBarColor(statusBar);*/
+
         ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         textView.setText(dateClickInBar);
-        ClientAdapter clientAdapter = new ClientAdapter(getContext());
-        clientAdapter.addListClient(clientAddDataBase.getClientDAO().getListDate(dataID));
+        ClientAdapter clientAdapter = new ClientAdapter(getContext(), NoteDayFragment.this);
+
+        //clientAdapter.addListClient(clientAddDataBase.getClientDAO().getListDate(dataID));
+        dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
+        /*dataBaseViewModel.getListID(dataID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
+            @Override
+            public void onChanged(List<Client> clients) {
+                 clientAdapter.addListClient(clients);
+            }
+        });
+*/
+
+        clientAddDataBase.getClientDAO().getListDateUI(dataID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
+            @Override
+            public void onChanged(List<Client> clients) {
+
+                clientAdapter.adapterReplace(clients);
+            }
+        });
+
         EditClientFragment.clientAdapter = clientAdapter;
-        AddClientFragment .clientAdapter = clientAdapter;
+        AddClientFragment.clientAdapter = clientAdapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(clientAdapter);
 
@@ -99,5 +128,6 @@ public class NoteDayFragment extends Fragment {
         back = view.findViewById(R.id.back);
         add = view.findViewById(R.id.imageView_addUser);
         recyclerView = view.findViewById(R.id.recycler_list);
+        statusBar = view.findViewById(R.id.statusBar);
     }
 }

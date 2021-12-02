@@ -17,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.example.hairdresserappointment.adapters.AdapterDayInfo;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
 import com.example.hairdresserappointment.other.DataInfo;
 import com.example.hairdresserappointment.other.DataInfoViewModel;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import org.w3c.dom.Text;
 
@@ -38,6 +42,7 @@ public class StartFragment extends Fragment {
     RecyclerView recyclerView;
     ClientAddDataBase clientAddDataBase;
     Bundle bundleSetNoteDayFragment;
+    RelativeLayout start_background;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,12 +53,21 @@ public class StartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+
+
+        /*Доработать найстройки цвета*/
+        /*SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingBarColor(startBar);
+        settingViewModel.backgroundStartFragment(start_background);*/
+
+
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
 
 
         /*View Model отвечающяя за отображение по дате в recycler*/
         DataInfoViewModel dataInfoViewModel = new ViewModelProvider(StartFragment.this).get(DataInfoViewModel.class);
-        dataInfoViewModel.addListInLiveData(StartFragment.this, recyclerView);
+        dataInfoViewModel.addListInLiveData(this, recyclerView);
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -71,6 +85,7 @@ public class StartFragment extends Fragment {
     public void init(View view) {
         calendarView = view.findViewById(R.id.calendar);
         recyclerView = view.findViewById(R.id.recyclerView_date);
+        start_background = view.findViewById(R.id.start_background);
     }
 
 

@@ -18,16 +18,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 import androidx.room.Room;
 
+import com.example.hairdresserappointment.DataBaseViewModel;
 import com.example.hairdresserappointment.EditClientFragment;
 import com.example.hairdresserappointment.MainActivity;
 import com.example.hairdresserappointment.NoteDayFragment;
 import com.example.hairdresserappointment.R;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import java.util.List;
 
@@ -70,23 +73,27 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
     });
 
     Context context;
+    NoteDayFragment noteDayFragment;
+    DataBaseViewModel dataBaseViewModel;
 
-    public ClientAdapter(Context context) {
+    public ClientAdapter(Context context, NoteDayFragment noteDayFragment) {
         this.context = context;
+        this.noteDayFragment = noteDayFragment;
     }
 
     @NonNull
     @Override
     public ClienrAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.clientinfo_layout, parent, false);
-        return new ClienrAdapterViewHolder(view);
+        /*Доработать найстройки цвета*/
+       /* SettingViewModel settingViewModel = new ViewModelProvider(noteDayFragment).get(SettingViewModel.class);*/
+        return new ClienrAdapterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.clientinfo_layout, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ClienrAdapterViewHolder holder, int position) {
         Client client = clients.get(position);
-        ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(context);
+        //ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(context);
+        dataBaseViewModel = new ViewModelProvider(noteDayFragment).get(DataBaseViewModel.class);
         String hour_format = String.format("%02d", client.getTimeHour());
         String minute_format = String.format("%02d", client.getTimeMinute());
         holder.time_Hour.setText(hour_format);
@@ -98,8 +105,10 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
         holder.deleteClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 delClient(holder.getAdapterPosition());
-                clientAddDataBase.getClientDAO().deleteClient(new Client(Long.parseLong(holder.id_in_bd.getText().toString())));
+                //clientAddDataBase.getClientDAO().deleteClient(new Client(Long.parseLong(holder.id_in_bd.getText().toString())));
+                dataBaseViewModel.databaseDeleteClient(holder.id_in_bd);
             }
         });
 
@@ -138,6 +147,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
         return clients.size();
     }
 
+
+
     public void delClient(int positionHolder) {
         clients.removeItemAt(positionHolder);
     }
@@ -150,7 +161,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
         clients.replaceAll(list);
     }
 
-    class ClienrAdapterViewHolder extends RecyclerView.ViewHolder {
+    static class ClienrAdapterViewHolder extends RecyclerView.ViewHolder {
         TextView time_Hour, time_Minute, name, number, id_in_bd, job_client;
         ImageView deleteClient, callClient, editClient;
         public ClienrAdapterViewHolder(@NonNull View itemView) {

@@ -1,5 +1,8 @@
 package com.example.hairdresserappointment.db;
 
+import android.widget.ListView;
+
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -28,4 +31,7 @@ public interface ClientDAO {
 
     @Query("select*from table_client where idDate==:idDate order by timeHour ASC")
     public List<Client> getListDate(int idDate);
+
+    @Query("select*from table_client where idDate==:idDate order by timeHour ASC")
+    public LiveData<List<Client>> getListDateUI(int idDate);
 }

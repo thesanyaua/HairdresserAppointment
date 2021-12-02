@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
-        android:background="@color/background_color">
+        android:background="@color/green_them">
 
         <TextView
             android:id="@+id/operation_name"
@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:text="Добавить запись"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_gravity="center_vertical"
             android:textSize="25dp"
             android:textStyle="bold" />

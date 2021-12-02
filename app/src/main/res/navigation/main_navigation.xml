@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_startFragment_to_noteDayFragment"
             app:destination="@id/noteDayFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/noteDayFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_note_day">
         <action
             android:id="@+id/action_noteDayFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.hairdresserappointment.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_startFragment"
             app:destination="@id/startFragment" />
     </fragment>
 </navigation>

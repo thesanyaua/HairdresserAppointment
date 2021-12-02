@@ -13,10 +13,11 @@ public abstract class ClientAddDataBase extends RoomDatabase {
     public abstract ClientDAO getClientDAO();
 
     public static ClientAddDataBase getInstance(Context context) {
-        if(clientAddDataBase==null) {
-            clientAddDataBase = Room.databaseBuilder(context, ClientAddDataBase.class, "ClientDatabase").allowMainThreadQueries().build();
-        }
-        return clientAddDataBase;
+            if (clientAddDataBase == null) {
+                clientAddDataBase = Room.databaseBuilder(context, ClientAddDataBase.class, "ClientDatabase").build();
+            }
+            return clientAddDataBase;
+
     }
 
 }

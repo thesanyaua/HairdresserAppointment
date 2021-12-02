@@ -19,11 +19,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import com.example.hairdresserappointment.adapters.ClientAdapter;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+
+import java.util.List;
 
 public class AddClientFragment extends DialogFragment {
 
@@ -35,6 +39,7 @@ public class AddClientFragment extends DialogFragment {
     TextView add_positive_click, add_negative_click, add_error, add_job_client;
     ClientAddDataBase clientAddDataBase;
     ImageView add_get_contact;
+    DataBaseViewModel dataBaseViewModel;
 
 
     @Override
@@ -54,6 +59,7 @@ public class AddClientFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+        dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         add_get_contact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +86,25 @@ public class AddClientFragment extends DialogFragment {
                                 Integer.parseInt(add_hour.getText().toString()),
                                 Integer.parseInt(add_minute.getText().toString()),
                                 add_job_client.getText().toString());
-                        clientAddDataBase.getClientDAO().addClient(client);
-                        clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
+
+                        //clientAddDataBase.getClientDAO().addClient(client);
+                        dataBaseViewModel.databaseAddClient(client);
+
+                        //clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
+                       /* dataBaseViewModel.getListID(dateID).observe(AddClientFragment.this, new Observer<List<Client>>() {
+                            @Override
+                            public void onChanged(List<Client> clients) {
+                                clientAdapter.adapterReplace(clients);
+                            }
+                        });*/
+
+                        /*clientAddDataBase.getClientDAO().getListDateUI(dateID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
+                            @Override
+                            public void onChanged(List<Client> clients) {
+                                clientAdapter.adapterReplace(clients);
+                            }
+                        });*/
+
                         AddClientFragment.this.onDestroyView();
                     }
                 }catch (Exception e) {
