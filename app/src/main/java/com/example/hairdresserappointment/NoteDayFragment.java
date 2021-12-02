@@ -64,7 +64,7 @@ public class NoteDayFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_note_day, container, false);
     }
 
@@ -72,23 +72,16 @@ public class NoteDayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
 
-        /*Доработать найстройки цвета*/
-       /* SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
-        settingViewModel.settingBarColor(statusBar);*/
+
+        SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingBarColor(statusBar);
 
         ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         textView.setText(dateClickInBar);
         ClientAdapter clientAdapter = new ClientAdapter(getContext(), NoteDayFragment.this);
 
-        //clientAdapter.addListClient(clientAddDataBase.getClientDAO().getListDate(dataID));
+
         dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
-        /*dataBaseViewModel.getListID(dataID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
-            @Override
-            public void onChanged(List<Client> clients) {
-                 clientAdapter.addListClient(clients);
-            }
-        });
-*/
 
         clientAddDataBase.getClientDAO().getListDateUI(dataID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
             @Override

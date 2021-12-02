@@ -1,5 +1,6 @@
 package com.example.hairdresserappointment.adapters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,27 +10,33 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hairdresserappointment.NoteDayFragment;
 import com.example.hairdresserappointment.R;
+import com.example.hairdresserappointment.StartFragment;
 import com.example.hairdresserappointment.other.DataInfo;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import java.util.List;
 
 public class AdapterDayInfo extends RecyclerView.Adapter<AdapterDayInfo.AdapterDayInfoViewHolder> {
 
     List<DataInfo> dataInfos;
+    StartFragment startFragment;
 
-    public AdapterDayInfo(List<DataInfo> dataInfos) {
+    public AdapterDayInfo(List<DataInfo> dataInfos, StartFragment startFragment) {
         this.dataInfos = dataInfos;
+        this.startFragment = startFragment;
     }
 
     @NonNull
     @Override
     public AdapterDayInfoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AdapterDayInfoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.date_info_layout, parent, false));
+        SettingViewModel settingViewModel = new ViewModelProvider(startFragment).get(SettingViewModel.class);
+        return new AdapterDayInfoViewHolder(settingViewModel.getViewInDayInfoList(parent, viewType));
     }
 
     @Override

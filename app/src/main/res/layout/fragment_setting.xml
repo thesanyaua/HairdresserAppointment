@@ -3,103 +3,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SettingFragment"
+    android:background="#E8E7E7">
 
-   <LinearLayout
-       android:id="@+id/setting_bar"
-       android:layout_width="match_parent"
-       android:layout_height="?actionBarSize"
-       android:background="@color/yellow_them">
+    <LinearLayout
+        android:id="@+id/setting_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/yellow_them">
 
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-           <ImageView
-               android:id="@+id/setting_back"
-               android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:src="@drawable/ic_baseline_arrow_back_24"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dp"/>
+            <ImageView
+                android:id="@+id/setting_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_centerInParent="true"
-               android:gravity="center"
-               android:text="Настройки"
-               android:textColor="@color/black"
-               android:textSize="17dp"
-               android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Настройки"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
-           <ImageView
-               android:id="@+id/setting_save"
-               android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:src="@drawable/ic_baseline_save_24"
-               android:layout_alignParentEnd="true"
-               android:layout_centerVertical="true"
-               android:layout_marginRight="10dp"/>
+            <ImageView
+                android:id="@+id/setting_save"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_baseline_save_24" />
 
-       </RelativeLayout>
-
-
-   </LinearLayout>
+        </RelativeLayout>
 
 
-    <TextView
-        android:id="@+id/text_them"
-        android:layout_width="wrap_content"
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/setting_bar"
-        android:layout_marginLeft="5dp"
-        android:text="Изменить тему"
-        android:textStyle="bold" />
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
 
-
-
-
-    <RadioGroup
-        android:id="@+id/radio_group_colors"
-        android:layout_below="@id/text_them"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-
-        <RadioButton
-            android:id="@+id/radioButton_green"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:text="Зелённый"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/radioButton_yellow"
-            android:layout_width="match_parent"
-            android:text="Желтый"
-            android:layout_height="wrap_content"/>
 
-        <RadioButton
-            android:id="@+id/radioButton_blue"
-            android:layout_width="match_parent"
-            android:text="Синий"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/text_them"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/green_them"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="Изменить тему"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/radioButton_red"
-            android:layout_width="match_parent"
-            android:text="Красный"
-            android:layout_height="wrap_content"/>
-    </RadioGroup>
 
-    <View
-        android:id="@+id/liner_2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/radio_group_colors"
-        android:layout_marginTop="2dp"
-        android:background="#CDCDCD" />
+            <RadioGroup
+                android:id="@+id/radio_group_colors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_them"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+
+                <RadioButton
+                    android:id="@+id/radioButton_green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Зелённый" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_yellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Желтый" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Синий" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Красный" />
+            </RadioGroup>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

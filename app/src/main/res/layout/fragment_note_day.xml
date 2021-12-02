@@ -32,7 +32,7 @@
             android:gravity="center"
             android:text="01 января 1991"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ImageView

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -81,12 +83,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClienrAdap
         this.noteDayFragment = noteDayFragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @NonNull
     @Override
     public ClienrAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /*Доработать найстройки цвета*/
-       /* SettingViewModel settingViewModel = new ViewModelProvider(noteDayFragment).get(SettingViewModel.class);*/
-        return new ClienrAdapterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.clientinfo_layout, parent, false));
+
+        SettingViewModel settingViewModel = new ViewModelProvider(noteDayFragment).get(SettingViewModel.class);
+        return new ClienrAdapterViewHolder(settingViewModel.getViewInList(parent, viewType));
     }
 
     @Override

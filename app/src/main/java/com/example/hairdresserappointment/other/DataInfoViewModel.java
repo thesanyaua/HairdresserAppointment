@@ -50,7 +50,7 @@ public class DataInfoViewModel extends AndroidViewModel {
     public void addListInLiveData(StartFragment startFragment, RecyclerView recyclerView) {
         List<DataInfo> list = new ArrayList<>();
 
-        for(int a=0; a<7; a++) {
+        for(int a=0; a<6; a++) {
             list.add(new DataInfo(getDayData(a), getDayName(a), getRecordNow(a, startFragment), openDate(a)));
         }
 
@@ -61,7 +61,7 @@ public class DataInfoViewModel extends AndroidViewModel {
             @Override
             public void onChanged(List<DataInfo> dataInfos) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplication().getApplicationContext()));
-                AdapterDayInfo adapterDayInfo = new AdapterDayInfo(dataInfos);
+                AdapterDayInfo adapterDayInfo = new AdapterDayInfo(dataInfos, startFragment);
                 recyclerView.setAdapter(adapterDayInfo);
             }
         });

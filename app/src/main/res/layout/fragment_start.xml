@@ -8,11 +8,50 @@
     android:background="#E8E7E7"
     tools:context=".StartFragment">
 
+    <LinearLayout
+        android:id="@+id/liner_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/green_them"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40sp"
+
+            android:src="@drawable/scissors"
+            android:layout_gravity="center"
+            android:padding="5dp"/>
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="Асистент Парикмахера"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/setting_in_bar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_settings_24"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            />
+
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/id_cardView_calendar"
+        android:layout_below="@id/liner_bar"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"

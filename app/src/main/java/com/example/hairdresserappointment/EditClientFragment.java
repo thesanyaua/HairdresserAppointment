@@ -21,41 +21,46 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hairdresserappointment.adapters.ClientAdapter;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import java.util.List;
 
 
 public class EditClientFragment extends DialogFragment {
 
-static final int REQUEST_SELECT_PHONE_NUMBER = 1;
-public static ClientAdapter clientAdapter;
-String id_in_bd;
-int dateID;
-String name_client;
-String number_client;
-String time_Hour;
-String time_Minute;
-String job_client;
+    static final int REQUEST_SELECT_PHONE_NUMBER = 1;
+    public static ClientAdapter clientAdapter;
+    String id_in_bd;
+    int dateID;
+    String name_client;
+    String number_client;
+    String time_Hour;
+    String time_Minute;
+    String job_client;
 
-EditText e_hour, e_minute, e_name_add_notatics, e_number_add_notatics;
-TextView positive_click, negative_click, error_textView, edit_job_client;
-ClientAddDataBase clientAddDataBase;
-ImageView e_add_contact_from_contacts;
-DataBaseViewModel dataBaseViewModel;
+    EditText e_hour, e_minute, e_name_add_notatics, e_number_add_notatics;
+    TextView error_textView, edit_job_client;
+    Button positive_click, negative_click;
+    ClientAddDataBase clientAddDataBase;
+    LinearLayout liner_edit_bar;
+    ImageView e_add_contact_from_contacts;
+    DataBaseViewModel dataBaseViewModel;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
+        if (getArguments() != null) {
             id_in_bd = getArguments().getString("id_in_bd");
             dateID = getArguments().getInt("dateID");
             name_client = getArguments().getString("name_client");
@@ -76,6 +81,10 @@ DataBaseViewModel dataBaseViewModel;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+
+        SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingAddAndEditFragment(liner_edit_bar, e_add_contact_from_contacts);
+
         dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         e_hour.setText(time_Hour);
@@ -95,15 +104,14 @@ DataBaseViewModel dataBaseViewModel;
         });
 
 
-
         positive_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    if(Integer.parseInt(e_hour.getText().toString())>23||Integer.parseInt(e_minute.getText().toString())>59 ||
-                            e_hour.getText().toString()==null || e_minute.getText().toString()==null) {
+                    if (Integer.parseInt(e_hour.getText().toString()) > 23 || Integer.parseInt(e_minute.getText().toString()) > 59 ||
+                            e_hour.getText().toString() == null || e_minute.getText().toString() == null) {
                         error_textView.setText("Не верно указано время");
-                    }else {
+                    } else {
                         Client client = new Client(
                                 Long.parseLong(id_in_bd),
                                 dateID,
@@ -113,18 +121,8 @@ DataBaseViewModel dataBaseViewModel;
                                 Integer.parseInt(e_minute.getText().toString()),
                                 edit_job_client.getText().toString());
 
-                        //clientAddDataBase.getClientDAO().updateClient(client);
-                        dataBaseViewModel.databaseUpdateClient(client);
-                        //clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
-                        //clientAdapter.adapterReplace(dataBaseViewModel.getListID(dateID));
-                        //dataBaseViewModel.getListID(dateID, clientAdapter);
 
-//                        dataBaseViewModel.getListID(dateID).observe(EditClientFragment.this, new Observer<List<Client>>() {
-//                            @Override
-//                            public void onChanged(List<Client> clients) {
-//                                clientAdapter.adapterReplace(clients);
-//                            }
-//                        });
+                        dataBaseViewModel.databaseUpdateClient(client);
 
                         clientAddDataBase.getClientDAO().getListDateUI(dateID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
                             @Override
@@ -134,8 +132,9 @@ DataBaseViewModel dataBaseViewModel;
                         });
 
                         EditClientFragment.this.onDestroyView();
+                        EditClientFragment.this.onDestroy();
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     error_textView.setText("Не верно указано время");
                 }
 
@@ -154,8 +153,7 @@ DataBaseViewModel dataBaseViewModel;
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null)
-        {
+        if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.WRAP_CONTENT;
             dialog.getWindow().setLayout(width, height);
@@ -173,6 +171,7 @@ DataBaseViewModel dataBaseViewModel;
         negative_click = view.findViewById(R.id.negative_click);
         error_textView = view.findViewById(R.id.error);
         edit_job_client = view.findViewById(R.id.e_add_job_client);
+        liner_edit_bar = view.findViewById(R.id.liner_edit_bar);
     }
 
 

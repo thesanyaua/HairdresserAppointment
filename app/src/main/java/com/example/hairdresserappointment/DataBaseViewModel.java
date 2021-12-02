@@ -19,8 +19,7 @@ import java.util.List;
 public class DataBaseViewModel extends AndroidViewModel {
 
     ClientAddDataBase clientAddDataBase = ClientAddDataBase.getInstance(getApplication().getApplicationContext());
-    List<Client> clients1 = new ArrayList<>();
-    Handler handler = new Handler();
+
 
     public DataBaseViewModel(@NonNull Application application) {
         super(application);

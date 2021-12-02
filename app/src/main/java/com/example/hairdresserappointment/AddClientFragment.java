@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import androidx.room.Room;
 import com.example.hairdresserappointment.adapters.ClientAdapter;
 import com.example.hairdresserappointment.db.Client;
 import com.example.hairdresserappointment.db.ClientAddDataBase;
+import com.example.hairdresserappointment.other.SettingViewModel;
 
 import java.util.List;
 
@@ -36,7 +39,9 @@ public class AddClientFragment extends DialogFragment {
     int dateID;
 
     EditText add_hour, add_minute, add_name_client, add_number_client;
-    TextView add_positive_click, add_negative_click, add_error, add_job_client;
+    TextView add_error, add_job_client;
+    Button add_positive_click, add_negative_click;
+    LinearLayout liner_add_bar;
     ClientAddDataBase clientAddDataBase;
     ImageView add_get_contact;
     DataBaseViewModel dataBaseViewModel;
@@ -59,6 +64,11 @@ public class AddClientFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init(view);
+
+        SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingAddAndEditFragment(liner_add_bar, add_get_contact);
+
+
         dataBaseViewModel = new ViewModelProvider(this).get(DataBaseViewModel.class);
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
         add_get_contact.setOnClickListener(new View.OnClickListener() {
@@ -87,25 +97,10 @@ public class AddClientFragment extends DialogFragment {
                                 Integer.parseInt(add_minute.getText().toString()),
                                 add_job_client.getText().toString());
 
-                        //clientAddDataBase.getClientDAO().addClient(client);
                         dataBaseViewModel.databaseAddClient(client);
 
-                        //clientAdapter.adapterReplace(clientAddDataBase.getClientDAO().getListDate(dateID));
-                       /* dataBaseViewModel.getListID(dateID).observe(AddClientFragment.this, new Observer<List<Client>>() {
-                            @Override
-                            public void onChanged(List<Client> clients) {
-                                clientAdapter.adapterReplace(clients);
-                            }
-                        });*/
-
-                        /*clientAddDataBase.getClientDAO().getListDateUI(dateID).observe(getViewLifecycleOwner(), new Observer<List<Client>>() {
-                            @Override
-                            public void onChanged(List<Client> clients) {
-                                clientAdapter.adapterReplace(clients);
-                            }
-                        });*/
-
                         AddClientFragment.this.onDestroyView();
+                        AddClientFragment.this.onDestroy();
                     }
                 }catch (Exception e) {
                     add_error.setText("Не верно указано время");
@@ -143,6 +138,7 @@ public class AddClientFragment extends DialogFragment {
         add_error = view.findViewById(R.id.add_error);
         add_get_contact = view.findViewById(R.id.add_get_contact);
         add_job_client = view.findViewById(R.id.add_job_client);
+        liner_add_bar = view.findViewById(R.id.liner_add_bar);
     }
 
     @Override

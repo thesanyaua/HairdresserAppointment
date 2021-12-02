@@ -1,9 +1,12 @@
 package com.example.hairdresserappointment.other;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +20,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.hairdresserappointment.CloseFragment;
+import com.example.hairdresserappointment.MainActivity;
 import com.example.hairdresserappointment.R;
 
 public class SettingViewModel extends AndroidViewModel {
@@ -26,11 +34,12 @@ public class SettingViewModel extends AndroidViewModel {
     SharedPreferences sharedPreferences = SharePreferenceSetting.getSPSetting(getApplication().getApplicationContext());
     SharedPreferences.Editor editor = SharePreferenceSetting.getSPEditor(getApplication().getApplicationContext());
 
+
     public SettingViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void clickRadioGroup(RadioGroup radioGroup, LinearLayout settingBar) {
+    public void clickRadioGroup(RadioGroup radioGroup, LinearLayout settingBar, FragmentManager fragmentManager) {
 
         radioGroup.check(sharedPreferences.getInt("Radio", R.id.radioButton_green));
         settingBarColor(settingBar);
@@ -39,21 +48,25 @@ public class SettingViewModel extends AndroidViewModel {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioButton_green) {
+                    getFragmentInfo(fragmentManager);
                     editor.putInt("Radio", R.id.radioButton_green);
                     editor.apply();
-                    settingBarColor(settingBar);
+                    //settingBarColor(settingBar);
                 } else if (checkedId == R.id.radioButton_yellow) {
+                    getFragmentInfo(fragmentManager);
                     editor.putInt("Radio", R.id.radioButton_yellow);
                     editor.apply();
-                    settingBarColor(settingBar);
+                    //settingBarColor(settingBar);
                 } else if (checkedId == R.id.radioButton_blue) {
+                    getFragmentInfo(fragmentManager);
                     editor.putInt("Radio", R.id.radioButton_blue);
                     editor.apply();
-                    settingBarColor(settingBar);
+                    //settingBarColor(settingBar);
                 } else if (checkedId == R.id.radioButton_red) {
+                    getFragmentInfo(fragmentManager);
                     editor.putInt("Radio", R.id.radioButton_red);
                     editor.apply();
-                    settingBarColor(settingBar);
+                    //settingBarColor(settingBar);
                 }
             }
         });
@@ -69,6 +82,35 @@ public class SettingViewModel extends AndroidViewModel {
             settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.blue_them));
         } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_red) {
             settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.red_them));
+        }
+    }
+
+    public void settingAddAndEditFragment(LinearLayout settingBar, ImageView imageView) {
+        if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_green) {
+            settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.green_them));
+            imageView.setImageResource(R.drawable.ic_baseline_contact_page_24);
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_yellow) {
+            settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.yellow_them));
+            imageView.setImageResource(R.drawable.contact_yellow);
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_blue) {
+            settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.blue_them));
+            imageView.setImageResource(R.drawable.contact_blue);
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_red) {
+            settingBar.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.red_them));
+            imageView.setImageResource(R.drawable.contact_red);
+        }
+    }
+
+    public void settingInSettingFragment(TextView textView) {
+        if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_green) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.green_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_yellow) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.yellow_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_blue) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.blue_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_red) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.red_them));
+
         }
     }
 
@@ -129,5 +171,46 @@ public class SettingViewModel extends AndroidViewModel {
         }
         return view;
     }
+
+    public View getViewInDayInfoList(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(getApplication().getApplicationContext()).inflate(R.layout.date_info_layout, parent, false);
+        TextView textView = view.findViewById(R.id.dayName);
+
+        if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_green) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.green_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_yellow) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.yellow_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_blue) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.blue_them));
+        } else if (sharedPreferences.getInt("Radio", R.id.radioButton_green) == R.id.radioButton_red) {
+            textView.setBackground(AppCompatResources.getDrawable(getApplication().getApplicationContext(), R.color.red_them));
+        }
+        return view;
+    }
+
+
+    public void setApplicationTheme(MainActivity mainActivity) {
+        if(sharedPreferences.getInt("Radio", R.id.radioButton_green)==R.id.radioButton_green){
+            mainActivity.setTheme(R.style.MyGreenTheme);
+        }else if(sharedPreferences.getInt("Radio", R.id.radioButton_green)==R.id.radioButton_yellow) {
+            mainActivity.setTheme(R.style.MyYellowTheme);
+        }else if(sharedPreferences.getInt("Radio", R.id.radioButton_green)==R.id.radioButton_blue) {
+            mainActivity.setTheme(R.style.MyBlueTheme);
+        }else if(sharedPreferences.getInt("Radio", R.id.radioButton_green)==R.id.radioButton_red) {
+            mainActivity.setTheme(R.style.MyRedTheme);
+        }
+    }
+
+    public void getFragmentInfo(FragmentManager fragmentManager){
+        CloseFragment closeFragment = new CloseFragment();
+        if(fragmentManager!=null) {
+            closeFragment.show(fragmentManager, "casual1");
+        }
+
+    }
+
+
+
+
 
 }

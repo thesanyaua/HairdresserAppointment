@@ -43,6 +43,8 @@ public class StartFragment extends Fragment {
     ClientAddDataBase clientAddDataBase;
     Bundle bundleSetNoteDayFragment;
     RelativeLayout start_background;
+    ImageView settingInBar;
+    LinearLayout startBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,11 +57,16 @@ public class StartFragment extends Fragment {
         init(view);
 
 
-        /*Доработать найстройки цвета*/
-        /*SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
-        settingViewModel.settingBarColor(startBar);
-        settingViewModel.backgroundStartFragment(start_background);*/
 
+        SettingViewModel settingViewModel = new ViewModelProvider(this).get(SettingViewModel.class);
+        settingViewModel.settingBarColor(startBar);
+
+        settingInBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_startFragment_to_settingFragment);
+            }
+        });
 
         clientAddDataBase = ClientAddDataBase.getInstance(getContext());
 
@@ -86,6 +93,8 @@ public class StartFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendar);
         recyclerView = view.findViewById(R.id.recyclerView_date);
         start_background = view.findViewById(R.id.start_background);
+        settingInBar = view.findViewById(R.id.setting_in_bar);
+        startBar = view.findViewById(R.id.liner_bar);
     }
 
 
