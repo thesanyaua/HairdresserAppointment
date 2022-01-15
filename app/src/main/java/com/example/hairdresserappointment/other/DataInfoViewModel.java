@@ -87,7 +87,7 @@ public class DataInfoViewModel extends AndroidViewModel {
     public String getRecordNow(int data_day, StartFragment startFragment) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, data_day);
-        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMyyyy");
         int date = Integer.parseInt(simpleDateFormatID.format(calendar.getTime()));
         clientAddDataBase = ClientAddDataBase.getInstance(getApplication().getApplicationContext());
 
@@ -110,7 +110,7 @@ public class DataInfoViewModel extends AndroidViewModel {
     public int openDate(int data_day) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, data_day);
-        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat simpleDateFormatID = createSimpleDateFormat("ddMyyyy");
         int openDat = Integer.valueOf(simpleDateFormatID.format(calendar.getTime()));
         return  openDat;
     }
